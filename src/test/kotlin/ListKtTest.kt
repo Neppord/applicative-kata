@@ -1,7 +1,28 @@
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
+/*
+* Abizer
+* Iulian
+* Jack
+* */
+
+/*
+ * (::id).fmap(listOf()) -> listOf()
+ * (::id).fmap(listOf("foo", "bar")) -> listOf("foo", "bar")
+ * (::double).fmap(listOf()) -> listOf()
+ */
 internal class ListKtTest {
+    
+    @Test
+    fun `foo`() {
+        assertEquals(listOf<Int>(), {it:Int -> it}.fmap(listOf<Int>()))
+    }
+    
+    @Test
+    fun givenWeHaveAList_returnsTheSameList(){
+        assertEquals(listOf("foo", "bar"), {it:String -> it}.fmap(listOf("foo", "bar")))
+    }
     
     @Test
     fun example() {
@@ -19,3 +40,4 @@ internal class ListKtTest {
         )
     }
 }
+

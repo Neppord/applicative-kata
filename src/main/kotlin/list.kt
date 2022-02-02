@@ -1,8 +1,14 @@
 
 fun <A, B> ((A) -> B).fmap(list: List<A>): List<B> {
-    TODO()
+    return list.map(this)
 }
 
 fun <A, B> List<(A) -> B>.ap(other: List<A>): List<B> {
-    TODO()
+    val emptyList: MutableList<B> = mutableListOf()
+    for (o in other) {
+        for (f in this) {
+            emptyList.add(f(o))
+        }
+    }
+    return emptyList
 }

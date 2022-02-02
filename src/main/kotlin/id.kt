@@ -1,8 +1,6 @@
 
-fun Int.intId (): Int {
-    TODO("to implement")
-}
+fun Int.intId (): Int = this
 
 fun <T> T.id (): T {
-    TODO("to implement")
+    return this
 }
