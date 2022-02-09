@@ -11,3 +11,6 @@ fun <A, B> List<(A) -> B>.ap(other: List<A>): List<B> {
     }
     return emptyList
 }
+
+fun <A> List<A>.or(other: List<A>): List<A> =
+    TODO("This is part of Alternative, wait with this one until your done with Applicative") 
