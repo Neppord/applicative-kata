@@ -1,10 +1,15 @@
 typealias Parser<A> = (String) -> Pair<A, String>
 typealias Operator<A> = (A, A) -> A
 
-fun <A> pure(a: A): Parser<A> =
-    TODO("Returns the value without consuming input")
+// username("name@gmail.com") -> ("name", "@gmail.com")
+// username("gmail.com") -> !Exception("Invalid input")
 
-fun <A, B> ((A) -> B).fmap(parser: Parser<A>): Parser<B> = TODO()
+fun <A> pure(a: A): Parser<A> = { input: String -> a to input }
+
+fun <A, B> ((A) -> B).fmap(parser: Parser<A>): Parser<B> = { 
+        input: String ->
+    parser(input).map(this)
+}
 
 fun <A, B> Parser<(A) -> B>.ap(other: Parser<A>): Parser<B> = TODO()
 
