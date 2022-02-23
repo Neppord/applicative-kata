@@ -42,7 +42,7 @@ fun Request.convert(): URLRequest {
 }
 */
 
-interface Client<in REQUEST, out RESPONSE> {
+interface Client<REQUEST, out RESPONSE> {
     
     fun send(r: REQUEST): RESPONSE
     
@@ -55,4 +55,43 @@ interface Client<in REQUEST, out RESPONSE> {
         }
         return client
     }
+    
+    fun <NEWRESPONSE> fmap(f: (RESPONSE) -> NEWRESPONSE): Client<REQUEST, NEWRESPONSE> {
+        val client = object:Client<REQUEST, NEWRESPONSE>{
+            override fun send(r: REQUEST): NEWRESPONSE {
+                return f(this@Client.send(r))
+            }
+        }
+        return client
+    }
+    
+    fun <B> apply(fClient: Client<REQUEST, (RESPONSE) -> B>): Client<REQUEST, B> {
+        val client = object:Client<REQUEST, B>{
+            override fun send(r: REQUEST): B {
+                val f: (RESPONSE) -> B = fClient.send(r)
+                return f(this@Client.send(r))
+            }
+        }
+        return client
+    }
+    
+    companion object {
+        fun <RESPONSE> pure(response: RESPONSE): Client<Any, RESPONSE> {
+            val client = object:Client<Any, RESPONSE>{
+                override fun send(r: Any): RESPONSE {
+                    return response
+                }
+            }
+            return client
+        }
+    }
+}
+
+fun <REQUEST, RESPONSE, B> Client<REQUEST, (RESPONSE) -> B>.ap(c: Client<REQUEST, RESPONSE>): Client<REQUEST, B> {
+    val client = object:Client<REQUEST, B>{
+        override fun send(r: REQUEST): B {
+            return this@ap.send(r).invoke(c.send(r))
+        }
+    }
+    return client
 }
