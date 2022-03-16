@@ -1,7 +1,25 @@
 package session1
 
-var oneParser: Parser<String> = TODO("Use MatchParser to build this one")
+var oneParser: Parser<String> = MatchParser("1")
+var twoParser: Parser<String> = MatchParser("2")
+var threeParser: Parser<String> = MatchParser("3")
+var fourParser: Parser<String> = MatchParser("4")
+var fiveParser: Parser<String> = MatchParser("5")
+var sixParser: Parser<String> = MatchParser("6")
+var sevenParser: Parser<String> = MatchParser("7")
+var eightParser: Parser<String> = MatchParser("8")
+var nineParser: Parser<String> = MatchParser("9")
+var zeroParser: Parser<String> = MatchParser("0")
 /* 2-0 parsers needs to be implemented here*/
-val digitParser: Parser<String> = TODO("Use OrParser to build this one")
+val digitParser: Parser<String> = oneParser
+    .or(twoParser)
+    .or(threeParser)
+    .or(fourParser)
+    .or(fiveParser)
+    .or(sixParser)
+    .or(sevenParser)
+    .or(eightParser)
+    .or(nineParser)
+    .or(zeroParser)
 val numberParser: Parser<String> = TODO("Use OneOrMoreParser to build this one")
 val intParser: Parser<Int> = TODO("Use map to build this one")

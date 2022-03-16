@@ -6,8 +6,12 @@ package session1
  * OrParser(MatchParser("1"), MatchParser("2")).parser("123") == "1" to "23"
  * OrParser(MatchParser("1"), MatchParser("2")).parser("23") == "2" to "3"
  * */
-class OrParser<Out>(first: Parser<Out>, theOther: Parser<Out>): Parser<Out> {
+class OrParser<Out>(val first: Parser<Out>, val theOther: Parser<Out>): Parser<Out> {
     override fun parse(string: String): Pair<Out, String> {
-        TODO("Not yet implemented")
+        return try {
+            first.parse(string)
+        } catch (e:Exception) {
+            theOther.parse(string)
+        }
     }
 }
