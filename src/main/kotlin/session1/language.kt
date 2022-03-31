@@ -22,4 +22,4 @@ val digitParser: Parser<String> = oneParser
     .or(nineParser)
     .or(zeroParser)
 val numberParser: Parser<String> = TODO("Use OneOrMoreParser to build this one")
-val intParser: Parser<Int> = TODO("Use map to build this one")
+val intParser: Parser<Int> = TODO()
